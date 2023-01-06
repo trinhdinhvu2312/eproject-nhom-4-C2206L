@@ -50,24 +50,23 @@ function init(){
         email varchar(50),
         phone varchar(20),
         address varchar(50),
-        payment varchar(200),
+        password varchar(50),
         id_user_book int
     )');
 
     query('create table if not exists admin (
         id_admin int primary key auto_increment,
         name varchar(50),
-        password varchar(20),
+        password varchar(50),
         admin_status int
     )');
 
     query('create table if not exists contact (
         id_contact int primary key auto_increment,
+        time_create varchar(50),
         name varchar(50),
         email varchar(50),
         address varchar(50),
-        zip_postal_code varchar(20),
-        subject varchar(50),
         comment varchar(200)
     )');
 
@@ -114,6 +113,13 @@ function init(){
         FOREIGN KEY (id_user_book) REFERENCES booking(id_booking) 
         ON DELETE CASCADE ON UPDATE CASCADE;
     ');
+
+    // query('ALTER TABLE admin AUTO_INCREMENT = 1;
+    //     ALTER TABLE users AUTO_INCREMENT = 1;
+    //     ALTER TABLE product AUTO_INCREMENT = 1;
+    //     ALTER TABLE animal AUTO_INCREMENT = 1;
+    //     ALTER TABLE events AUTO_INCREMENT = 1
+    // ');
 }
 
 function initDB(){

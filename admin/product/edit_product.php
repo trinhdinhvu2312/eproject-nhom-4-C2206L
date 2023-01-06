@@ -1,5 +1,10 @@
 <?php
+session_start();
 
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
 require_once('../dbhelper.php');
 
 $sql = "select * from product where id_product = " . $_GET['id_product'];

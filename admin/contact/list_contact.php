@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
+require_once('../dbhelper.php');
+
+$sql = "select * from contact";
+$list = queryResult($sql);
+$index = 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,42 +51,50 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
         <?php include '../components/sidebar.php'; ?>
-        <?php include '../components/wrapper.php'; ?>
+        <?php include '../components/wrapper.php'; ?> 
+
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Add Animal</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Product</h6>
               </div>
               <div class="card-body">
-                <div class="form-responsive">
-                <form action="pr_add_animal.php" method="POST" enctype="multipart/form-data">
-                     <div class="mb-3">
-                      <label >Service</label>
-                        <select name="service" id="service">
-                          <option value="1" selected="selected">Buy</option>
-                          <option value="2">Rent</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label >Name</label>
-                        <input required name="name" type="text" class="form-control" placeholder="Enter Name">
-                      </div>
-                      <div class="mb-3">
-                        <label >Price</label>
-                        <input required name="price" type="text" class="form-control" placeholder="Enter Price">
-                      </div>
-                      <div class="mb-3">
-                        <p><label >Description</label></p>
-                        <textarea required name="description" id="" cols="100" rows="4"></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formFile" class="form-label">Avatar</label>
-                        <input required name="fileToUpload" class="form-control" type="file" id="formFile">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Comment</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($list as $item) { ?>
+                            <tr>
+                                <td><?=$item['id_contact']?></td>
+                                <td><?=$item['time_create']?></td>
+                                <td><?=$item['name']?></td>
+                                <td><?=$item['email']?></td>
+                                <td><?=$item['address']?></td>
+                                <td><?=$item['comment']?></td>
+                                <td>
+                                    <a onclick="return confirm('Are you sure want to delete?')" href="delete_product.php?id_product=<?=$item['id_product']?>"><button class="btn btn-danger">Remove</button></a>
+                                </td>
+                            </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -83,6 +104,7 @@
         <!-- End of Main Content -->
 
         <?php include '../components/footer.php'; ?>
+        <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
     </div>
@@ -94,7 +116,6 @@
     </a>
 
     <?php include '../components/logout_modal.php'; ?>
-
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

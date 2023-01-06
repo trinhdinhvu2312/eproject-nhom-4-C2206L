@@ -54,7 +54,7 @@
 
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-target="#collapseUtilities"
+    <a class="nav-link collapsed" href="../contact/list_contact.php" data-target="#collapseUtilities"
         aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-comments"></i>
         <span>Contact</span>
@@ -78,8 +78,7 @@
     </a>
     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Admin</h6>
-            <a class="collapse-item" href="../admincp/add_admin.php">Add Admin</a>
+            <h6 class="collapse-header">Admin</h6> 
             <a class="collapse-item" href="../admincp/list_admin.php">List Admin</a>
             <h6 class="collapse-header">Users</h6>
             <a class="collapse-item" href="../users/add_users.php">Add Users</a>

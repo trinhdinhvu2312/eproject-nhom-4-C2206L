@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
 require_once('../dbhelper.php');
 
 $sql = "select * from events";

@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +35,6 @@
 
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet" />
-
     <!-- Custom styles for this page -->
     <link
       href="../assets/vendor/datatables/dataTables.bootstrap4.min.css"
@@ -67,6 +75,9 @@
                       <div class="mb-3">
                         <p><label >Description</label></p>
                         <textarea required name="description" id="" cols="100" rows="4"></textarea>
+                        <script>
+                          CKEDITOR.replace( 'description' );
+                        </script>
                       </div>
                       <div class="mb-3">
                         <label for="formFile" class="form-label">Avatar</label>

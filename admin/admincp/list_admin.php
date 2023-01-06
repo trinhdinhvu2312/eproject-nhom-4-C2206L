@@ -1,7 +1,14 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
+
 require_once('../dbhelper.php');
 
-$sql = "select * from animal";
+$sql = "select * from admin";
 $list = queryResult($sql);
 $index = 0;
 ?>
@@ -52,7 +59,7 @@ $index = 0;
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">List Animal</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Admin</h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -65,33 +72,27 @@ $index = 0;
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Service</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th></th>
+                        <th>UserName</th>
+                        <th>Password</th>
+                        <th>Admin Status</th> 
                       </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($list as $item) { ?>
                             <tr>
-                                <td><?=$item['id_animal']?></td>
+                                <td><?=$item['id_admin']?></td>
+                                <td><?=$item['name']?></td>
+                                <td><?=md5($item['password'])?></td>
                                 <td>
                                     <?php
-                                    if ($item['service'] == '1')
-                                      echo 'Buy';
-                                    else
-                                      echo 'Rent';
+                                    if ($item['admin_status'] == '1')
+                                      echo 'Pending';
+                                    else if ($item['admin_status'] == '2')
+                                      echo 'Activated';
+                                    else{
+                                      echo 'Locked';
+                                    }
                                     ?>
-                                </td>
-                                <td><?=$item['name']?></td>
-                                <td><?=$item['price']?></td>
-                                <td><?=$item['description']?></td>
-                                <td><img src="<?=$item['avatar']?>" alt="" width="100px" height="100px"></td>
-                                <td>
-                                    <a href="edit_animal.php?id_animal=<?=$item['id_animal']?>" style="margin-right: 5px;"><button class="btn btn-warning">Edit</button></a>
-                                    <a onclick="return confirm('Are you sure want to delete?')" href="delete_animal.php?id_animal=<?=$item['id_animal']?>"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                     <?php } ?>
@@ -105,14 +106,7 @@ $index = 0;
         </div>
         <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Your Website 2020</span>
-            </div>
-          </div>
-        </footer>
+        <?php include '../components/footer.php'; ?>
         <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
@@ -123,45 +117,9 @@ $index = 0;
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button
-              class="close"
-              type="button"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Select "Logout" below if you are ready to end your current session.
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-secondary"
-              type="button"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    
+    <?php include '../components/logout_modal.php'; ?>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>

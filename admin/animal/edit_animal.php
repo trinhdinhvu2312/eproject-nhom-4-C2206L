@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['admin'])) {
+	header('Location: ../');
+	die();
+}
+
 
 require_once('../dbhelper.php');
 
@@ -115,6 +122,10 @@ $item = queryResult($sql, true);
 
     <!-- Core plugin JavaScript-->
     <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'description' );
+    </script>
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/sb-admin-2.min.js"></script>
