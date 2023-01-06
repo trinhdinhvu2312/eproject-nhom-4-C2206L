@@ -57,7 +57,24 @@ if(!isset($_SESSION['admin'])) {
               <div class="card-body">
                 <div class="form-responsive">
                 <form action="pr_add_animal.php" method="POST" enctype="multipart/form-data">
-                     <div class="mb-3">
+                      <div class="mb-3">
+                      <label >Cartegory</label>
+                        <select name="cartegory" id="cartegory">
+                          <?php
+                          require_once('../dbhelper.php');
+                          $sql_mn = "SELECT * FROM mn_animal ORDER BY id_mn_animal DESC";
+                          $list_mn = queryResult($sql_mn);
+                          $index = 0;
+                          foreach ($list_mn as $item) { ?>
+                          <option value="<?php echo $item['id_mn_animal']; ?>"><?php echo $item['name_mn']; ?></option>
+                          <?php }?>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label >Name</label>
+                        <input required name="name" type="text" class="form-control" placeholder="Enter Name">
+                      </div>
+                      <div class="mb-3">
                       <label >Service</label>
                         <select name="service" id="service">
                           <option value="1" selected="selected">Buy</option>
@@ -65,8 +82,8 @@ if(!isset($_SESSION['admin'])) {
                         </select>
                       </div>
                       <div class="mb-3">
-                        <label >Name</label>
-                        <input required name="name" type="text" class="form-control" placeholder="Enter Name">
+                        <label >Quantity</label>
+                        <input required name="quantity" type="text" class="form-control" placeholder="Enter Quantity">
                       </div>
                       <div class="mb-3">
                         <label >Price</label>
@@ -75,9 +92,13 @@ if(!isset($_SESSION['admin'])) {
                       <div class="mb-3">
                         <p><label >Description</label></p>
                         <textarea required name="description" id="" cols="100" rows="4"></textarea>
-                        <script>
-                          CKEDITOR.replace( 'description' );
-                        </script>
+                      </div>
+                      <div class="mb-3">
+                      <label >Status</label>
+                        <select name="status" id="status">
+                          <option value="1" selected="selected">Activated</option>
+                          <option value="2">Hide</option>
+                        </select>
                       </div>
                       <div class="mb-3">
                         <label for="formFile" class="form-label">Avatar</label>

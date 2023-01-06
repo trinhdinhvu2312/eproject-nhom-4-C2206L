@@ -39,13 +39,18 @@
           <h6 class="collapse-header">Events</h6>
           <a class="collapse-item" href="../events/add_events.php">Add Events</a>
           <a class="collapse-item" href="../events/list_events.php">List Events</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Product</h6>
-          <a class="collapse-item" href="../product/add_product.php">Add Product</a>
-          <a class="collapse-item" href="../product/list_product.php">List Product</a>
+          <h6 class="collapse-header">Cartegory Animal</h6>
+          <a class="collapse-item" href="../mn_animal/add_mn_animal.php">Add Cartegory Animal</a>
+          <a class="collapse-item" href="../mn_animal/list_mn_animal.php">List Cartegory Animal</a> 
+          <h6 class="collapse-header">Cartegory Product</h6>
+          <a class="collapse-item" href="../mn_product/add_mn_product.php">Add Cartegory Product</a>
+          <a class="collapse-item" href="../mn_product/list_mn_product.php">List Cartegory Product</a> 
           <h6 class="collapse-header">Animal</h6>
           <a class="collapse-item" href="../animal/add_animal.php">Add Animal</a>
           <a class="collapse-item" href="../animal/list_animal.php">List Animal</a> 
+          <h6 class="collapse-header">Product</h6>
+          <a class="collapse-item" href="../product/add_product.php">Add Product</a>
+          <a class="collapse-item" href="../product/list_product.php">List Product</a>
           <h6 class="collapse-header">Booking</h6>
           <a class="collapse-item" href="../booking/list_booking.php">List Booking</a>
         </div>

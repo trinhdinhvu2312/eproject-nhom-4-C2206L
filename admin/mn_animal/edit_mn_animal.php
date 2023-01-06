@@ -46,48 +46,36 @@ if(!isset($_SESSION['admin'])) {
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-    <?php include '../components/sidebar.php'; ?>
-    <?php include '../components/wrapper.php'; ?> 
-    <?php
+        <?php include '../components/sidebar.php'; ?>
+        <?php include '../components/wrapper.php'; ?>
+        <?php
         require_once('../dbhelper.php');
-        $sql = "select * from events where id_ev = " . $_GET['id_ev'];
+
+        $sql = "select * from mn_animal where id_mn_animal = " . $_GET['id_mn_animal'];
         $item = queryResult($sql, true);
-    ?>
+
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Event</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edit Cartegory Animal</h6>
               </div>
               <div class="card-body">
                 <div class="form-responsive">
-                <form action="pr_edit_events.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label >ID events</label>
-                        <input readonly name="id_ev" type="text" class="form-control" value="<?=$item['id_ev']?>">
+                <form action="pr_edit_mn_animal.php" method="POST" enctype="multipart/form-data">
+                      <div class="mb-3">
+                        <label >ID Cartegory Animal</label>
+                        <input readonly name="id_mn_animal" type="text" class="form-control" value="<?=$item['id_mn_animal']?>">
                       </div>
                       <div class="mb-3">
-                        <label >Event Title</label>
-                        <input required name="ev_title" type="text" class="form-control" placeholder="Enter Event Title"  value="<?=$item['ev_title']?>">
+                        <label >Cartegory Name</label>
+                        <input required name="name_mn" type="text" class="form-control" placeholder="Enter Cartegory Name" value="<?=$item['name_mn']?>">
                       </div>
                       <div class="mb-3">
-                        <label >Start Event</label>
-                        <input required name="ev_start" type="datetime" class="form-control"  value="<?=$item['ev_start']?>">
-                      </div>
-                      <div class="mb-3">
-                        <label >End Event</label>
-                        <input required name="ev_end" type="datetime" class="form-control"  value="<?=$item['ev_end']?>">
-                      </div>
-                      <div class="mb-3">
-                        <p><label >Description Event</label></p>
-                        <textarea required name="ev_description" id="" cols="100" rows="4"><?=$item['ev_description']?></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formFile" class="form-label">Avatar</label>
-                        <img src="<?=$item['ev_avatar']?>" width="120px" height="120px">
-                        <input type="hidden" name="old_fileToUpload" value="<?=$item['ev_avatar']?>">
-                        <input name="fileToUpload" class="form-control" type="file" id="formFile" style="margin-top: 10px;">
+                        <label >Index</label>
+                        <input required name="thutu" type="text" class="form-control" placeholder="Enter Index" value="<?=$item['thutu']?>">
                       </div>
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -99,7 +87,7 @@ if(!isset($_SESSION['admin'])) {
         </div>
         <!-- End of Main Content -->
 
-      <?php include '../components/footer.php'; ?>
+        <?php include '../components/footer.php'; ?>
       </div>
       <!-- End of Content Wrapper -->
     </div>
@@ -111,13 +99,16 @@ if(!isset($_SESSION['admin'])) {
     </a>
 
     <?php include '../components/logout_modal.php'; ?>
-
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'description' );
+    </script>
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/sb-admin-2.min.js"></script>

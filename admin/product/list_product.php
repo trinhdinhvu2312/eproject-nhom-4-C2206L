@@ -5,11 +5,6 @@ if(!isset($_SESSION['admin'])) {
 	header('Location: ../');
 	die();
 }
-require_once('../dbhelper.php');
-
-$sql = "select * from product";
-$list = queryResult($sql);
-$index = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +47,15 @@ $index = 0;
     <div id="wrapper">
         <?php include '../components/sidebar.php'; ?>
         <?php include '../components/wrapper.php'; ?> 
+        
+        <?php
+        require_once('../dbhelper.php');
 
+        $sql = "select * from product, mn_product 
+        where product.id_mn_product = mn_product.id_mn_product";
+        $list = queryResult($sql);
+        $index = 0;
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
@@ -71,10 +74,13 @@ $index = 0;
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Title</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Cartegory</th>
+                        <th>Quantity</th>
                         <th>Price</th>
                         <th>Description</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -82,10 +88,20 @@ $index = 0;
                     <?php foreach ($list as $item) { ?>
                             <tr>
                                 <td><?=$item['id_product']?></td>
-                                <td><?=$item['title']?></td>
+                                <td><?php echo ucfirst($item['name']);?></td>
+                                <td><img src="<?=$item['avatar']?>" alt="" width="100px" height="100px"></td>
+                                <td><?=$item['name_mn']?></td>
+                                <td><?=$item['quantity']?></td>
                                 <td><?=$item['price']?></td>
                                 <td><?=$item['description']?></td>
-                                <td><img src="<?=$item['avatar']?>" alt="" width="100px" height="100px"></td>
+                                <td>
+                                    <?php
+                                    if ($item['status'] == '1')
+                                      echo 'Activated';
+                                    else
+                                      echo 'Hide';
+                                    ?>
+                                </td>
                                 <td>
                                     <a href="edit_product.php?id_product=<?=$item['id_product']?>" style="margin-right: 5px;"><button class="btn btn-warning">Edit</button></a>
                                     <a onclick="return confirm('Are you sure want to delete?')" href="delete_product.php?id_product=<?=$item['id_product']?>"><button class="btn btn-danger">Remove</button></a>

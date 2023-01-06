@@ -13,7 +13,7 @@
     }
     require_once('dbhelper.php');
 
-    $sql = "select * from admin";
+    $sql = "SELECT * FROM admin ORDER BY id_admin DESC LIMIT 1";
     $list = queryResult($sql);
     $index = 0;
 ?>
@@ -74,15 +74,6 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <form method="post" >
-                <button name="action" value="init" class="btn btn-primary">Init Database</button>
-            </form>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
 
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -101,13 +92,18 @@
                 <h6 class="collapse-header">Events</h6>
                 <a class="collapse-item" href="events/add_events.php">Add Events</a>
                 <a class="collapse-item" href="events/list_events.php">List Events</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Product</h6>
-                <a class="collapse-item" href="product/add_product.php">Add Product</a>
-                <a class="collapse-item" href="product/list_product.php">List Product</a>
+                <h6 class="collapse-header">Cartegory Animal</h6>
+                <a class="collapse-item" href="mn_animal/add_mn_animal.php">Add Cartegory Animal</a>
+                <a class="collapse-item" href="mn_animal/list_mn_animal.php">List Cartegory Animal</a> 
+                <h6 class="collapse-header">Cartegory Product</h6>
+                <a class="collapse-item" href="mn_product/add_mn_product.php">Add Cartegory Product</a>
+                <a class="collapse-item" href="mn_product/list_mn_product.php">List Cartegory Product</a> 
                 <h6 class="collapse-header">Animal</h6>
                 <a class="collapse-item" href="animal/add_animal.php">Add Animal</a>
                 <a class="collapse-item" href="animal/list_animal.php">List Animal</a> 
+                <h6 class="collapse-header">Product</h6>
+                <a class="collapse-item" href="product/add_product.php">Add Product</a>
+                <a class="collapse-item" href="product/list_product.php">List Product</a>
                 <h6 class="collapse-header">Booking</h6>
                 <a class="collapse-item" href="booking/list_booking.php">List Booking</a>
                 </div>

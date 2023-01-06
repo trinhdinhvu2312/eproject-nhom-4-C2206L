@@ -1,3 +1,10 @@
+<?php
+    require_once('../dbhelper.php');
+
+    $sql = "SELECT * FROM admin ORDER BY id_admin DESC LIMIT 1";
+    $list = queryResult($sql);
+    $index = 0;
+?>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -176,7 +183,11 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                    <?php foreach ($list as $item) { 
+                             echo strtoupper($item['name']);
+                         } ?>
+                    </span>
                     <img class="img-profile rounded-circle"
                         src="../assets/img/undraw_profile.svg">
                 </a>

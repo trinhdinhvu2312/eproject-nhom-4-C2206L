@@ -6,11 +6,6 @@ if(!isset($_SESSION['admin'])) {
 	die();
 }
 
-require_once('../dbhelper.php');
-
-$sql = "select * from animal";
-$list = queryResult($sql);
-$index = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +47,15 @@ $index = 0;
     <!-- Page Wrapper -->
     <div id="wrapper">
         <?php include '../components/sidebar.php'; ?>
-        <?php include '../components/wrapper.php'; ?>
+        <?php include '../components/wrapper.php'; ?> 
+        <?php
+        require_once('../dbhelper.php');
 
+        $sql = "select * from animal, mn_animal 
+              where animal.id_mn_animal = mn_animal.id_mn_animal";
+        $list = queryResult($sql);
+        $index = 0;
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
@@ -72,11 +74,14 @@ $index = 0;
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Service</th>
                         <th>Name</th>
+                        <th>Image</th>
+                        <th>Service</th>
+                        <th>Cartegory</th>
+                        <th>Quantity</th>
                         <th>Price</th>
                         <th>Description</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -84,6 +89,8 @@ $index = 0;
                     <?php foreach ($list as $item) { ?>
                             <tr>
                                 <td><?=$item['id_animal']?></td>
+                                <td><?php echo ucfirst($item['name']);?></td>
+                                <td><img src="<?=$item['avatar']?>" alt="" width="100px" height="100px"></td>
                                 <td>
                                     <?php
                                     if ($item['service'] == '1')
@@ -92,10 +99,18 @@ $index = 0;
                                       echo 'Rent';
                                     ?>
                                 </td>
-                                <td><?=$item['name']?></td>
+                                <td><?=$item['name_mn']?></td>
+                                <td><?=$item['quantity']?></td>
                                 <td><?=$item['price']?></td>
                                 <td><?=$item['description']?></td>
-                                <td><img src="<?=$item['avatar']?>" alt="" width="100px" height="100px"></td>
+                                <td>
+                                    <?php
+                                    if ($item['status'] == '1')
+                                      echo 'Activated';
+                                    else
+                                      echo 'Hide';
+                                    ?>
+                                </td>
                                 <td>
                                     <a href="edit_animal.php?id_animal=<?=$item['id_animal']?>" style="margin-right: 5px;"><button class="btn btn-warning">Edit</button></a>
                                     <a onclick="return confirm('Are you sure want to delete?')" href="delete_animal.php?id_animal=<?=$item['id_animal']?>"><button class="btn btn-danger">Remove</button></a>
@@ -130,45 +145,7 @@ $index = 0;
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button
-              class="close"
-              type="button"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Select "Logout" below if you are ready to end your current session.
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-secondary"
-              type="button"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php include '../components/logout_modal.php'; ?>                 
 
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>

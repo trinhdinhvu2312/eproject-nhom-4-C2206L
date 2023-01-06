@@ -1,5 +1,5 @@
 <?php
-$id_animal = $service = $name = $price = $description = $avatar = $image = $fileToUpload =  "";
+$id_animal = $service = $name = $price = $description = $avatar = $image = $fileToUpload =  $quantity = $status = $cartegory= "";
 if (!empty($_POST)) {
     require_once('../dbhelper.php');
 
@@ -9,16 +9,19 @@ if (!empty($_POST)) {
     $price = $_POST['price'];
     $description = $_POST['description'];
     $image = $_FILES["fileToUpload"]["name"];
+    $quantity = $_POST['quantity'];
+    $status = $_POST['status'];
+    $cartegory = $_POST['cartegory'];
 
     if($image != ""){
         include 'uploadfile.php';
 
-        $sql = "Update animal set service='$service', name='$name', price='$price', description='$description', avatar='$avatar' where id_animal='$id_animal'";
+        $sql = "Update animal set service='$service', status='$status', quantity='$quantity', id_mn_animal='$cartegory', name='$name', price='$price', description='$description', avatar='$avatar' where id_animal='$id_animal'";
         query($sql);
         header('Location: list_animal.php');
     }
     else{
-        $sql = "Update animal set service='$service', name='$name', price='$price', description='$description' where id_animal='$id_animal'";
+        $sql = "Update animal set service='$service', status='$status', quantity='$quantity', id_mn_animal='$cartegory', name='$name', price='$price', description='$description' where id_animal='$id_animal'";
         query($sql);
         header('Location: list_animal.php');
     }

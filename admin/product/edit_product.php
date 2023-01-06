@@ -5,10 +5,6 @@ if(!isset($_SESSION['admin'])) {
 	header('Location: ../');
 	die();
 }
-require_once('../dbhelper.php');
-
-$sql = "select * from product where id_product = " . $_GET['id_product'];
-$item = queryResult($sql, true);
 
 ?>
 <!DOCTYPE html>
@@ -53,23 +49,53 @@ $item = queryResult($sql, true);
         <?php include '../components/sidebar.php'; ?>
         <?php include '../components/wrapper.php'; ?> 
 
+        <?php
+        require_once('../dbhelper.php');
+
+        $sql = "select * from product where id_product = " . $_GET['id_product'];
+        $item = queryResult($sql, true);
+
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Add Animal</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edit Product</h6>
               </div>
               <div class="card-body">
                 <div class="form-responsive">
                 <form action="pr_edit_product.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
+                <div class="mb-3">
                         <label >ID Product</label>
                         <input readonly name="id_product" type="text" class="form-control" value="<?=$item['id_product']?>">
+                     </div>
+                     <div class="mb-3">
+                      <label >Cartegory</label>
+                        <select name="cartegory" id="cartegory">
+                        <?php
+                          require_once('../dbhelper.php');
+                          $sql_mn = "SELECT * FROM mn_product ORDER BY id_mn_product DESC";
+                          $list_mn = queryResult($sql_mn);
+                          $index = 0;
+                          foreach ($list_mn as $item_mn) {
+                          if ($item_mn['id_mn_product'] == $item['id_mn_product']) {
+                            ?>
+                          <option selected value="<?php echo $item_mn['id_mn_product']; ?>"><?php echo $item_mn['name_mn']; ?></option>
+                        <?php }else{ ?>
+                          <option value="<?php echo $item_mn['id_mn_product']; ?>"><?php echo $item_mn['name_mn']; ?></option>
+                        <?php }?>
+                        <?php }?>
+                        </select>
+                     </div>
+                     <div class="mb-3">
+                        <label >Name</label>
+                        <input required name="name" type="text" class="form-control" placeholder="Enter Name" value="<?=$item['name']?>">
                       </div>
+                
                       <div class="mb-3">
-                        <label >Title</label>
-                        <input required name="title" type="text" class="form-control" placeholder="Enter Title Product" value="<?=$item['title']?>">
+                        <label >Quantity</label>
+                        <input required name="quantity" type="text" class="form-control" placeholder="Enter Quantity" value="<?=$item['quantity']?>">
                       </div>
                       <div class="mb-3">
                         <label >Price</label>
@@ -77,13 +103,20 @@ $item = queryResult($sql, true);
                       </div>
                       <div class="mb-3">
                         <p><label >Description</label></p>
-                        <textarea required name="description" id="" cols="100" rows="4"><?=$item['description']?></textarea>
+                        <textarea required name="description" id="" cols="100" rows="4" ><?=$item['description']?></textarea>
+                      </div>
+                      <div class="mb-3">
+                      <label >Status</label>
+                        <select name="status" id="status">
+                          <option value="1"<?php if($item['status'] == '1') { ?> selected="selected"<?php } ?>>Activated</option>
+                          <option value="2"<?php if($item['status'] == '2') { ?> selected="selected"<?php } ?>>Hide</option>
+                        </select>
                       </div>
                       <div class="mb-3">
                         <label for="formFile" class="form-label">Avatar</label>
                         <img src="<?=$item['avatar']?>" width="120px" height="120px">
                         <input type="hidden" name="old_fileToUpload" value="<?=$item['avatar']?>">
-                        <input name="fileToUpload" class="form-control" type="file" id="formFile" value="<?=$item['avatar']?>">
+                        <input name="fileToUpload" class="form-control" type="file" id="formFile" style="margin-top: 10px;">
                       </div>
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

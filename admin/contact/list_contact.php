@@ -5,11 +5,7 @@ if(!isset($_SESSION['admin'])) {
 	header('Location: ../');
 	die();
 }
-require_once('../dbhelper.php');
 
-$sql = "select * from contact";
-$list = queryResult($sql);
-$index = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +48,13 @@ $index = 0;
     <div id="wrapper">
         <?php include '../components/sidebar.php'; ?>
         <?php include '../components/wrapper.php'; ?> 
+        <?php
+        require_once('../dbhelper.php');
 
+        $sql = "select * from contact";
+        $list = queryResult($sql);
+        $index = 0;
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->

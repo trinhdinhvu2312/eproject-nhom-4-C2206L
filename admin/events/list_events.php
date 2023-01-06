@@ -52,7 +52,13 @@ $index = 0;
     <div id="wrapper">
         <?php include '../components/sidebar.php'; ?>
         <?php include '../components/wrapper.php'; ?> 
+        <?php
+        require_once('../dbhelper.php');
 
+        $sql = "select * from events";
+        $list = queryResult($sql);
+        $index = 0;
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->

@@ -5,7 +5,6 @@ if(!isset($_SESSION['admin'])) {
 	header('Location: ../');
 	die();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,51 +45,58 @@ if(!isset($_SESSION['admin'])) {
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-    <?php include '../components/sidebar.php'; ?>
-    <?php include '../components/wrapper.php'; ?> 
-    <?php
+        <?php include '../components/sidebar.php'; ?>
+        <?php include '../components/wrapper.php'; ?>
+
+        <?php
+
         require_once('../dbhelper.php');
-        $sql = "select * from events where id_ev = " . $_GET['id_ev'];
-        $item = queryResult($sql, true);
-    ?>
+
+        $sql = "select * from mn_product";
+        $list = queryResult($sql);
+        $index = 0;
+        ?>
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Event</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Cartegory Product</h6>
               </div>
               <div class="card-body">
-                <div class="form-responsive">
-                <form action="pr_edit_events.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label >ID events</label>
-                        <input readonly name="id_ev" type="text" class="form-control" value="<?=$item['id_ev']?>">
-                      </div>
-                      <div class="mb-3">
-                        <label >Event Title</label>
-                        <input required name="ev_title" type="text" class="form-control" placeholder="Enter Event Title"  value="<?=$item['ev_title']?>">
-                      </div>
-                      <div class="mb-3">
-                        <label >Start Event</label>
-                        <input required name="ev_start" type="datetime" class="form-control"  value="<?=$item['ev_start']?>">
-                      </div>
-                      <div class="mb-3">
-                        <label >End Event</label>
-                        <input required name="ev_end" type="datetime" class="form-control"  value="<?=$item['ev_end']?>">
-                      </div>
-                      <div class="mb-3">
-                        <p><label >Description Event</label></p>
-                        <textarea required name="ev_description" id="" cols="100" rows="4"><?=$item['ev_description']?></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formFile" class="form-label">Avatar</label>
-                        <img src="<?=$item['ev_avatar']?>" width="120px" height="120px">
-                        <input type="hidden" name="old_fileToUpload" value="<?=$item['ev_avatar']?>">
-                        <input name="fileToUpload" class="form-control" type="file" id="formFile" style="margin-top: 10px;">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Cartegory Name</th>
+                        <th>Index</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($list as $item) { ?>
+                            <tr>
+                                <td><?=$item['id_mn_product']?></td>
+                                <td><?=$item['name_mn']?></td>            
+                                <td><?=$item['thutu']?></td>  
+                                <td>
+                                    <a href="edit_mn_product.php?id_mn_product=<?=$item['id_mn_product']?>" style="margin-right: 5px;">
+                                      <button class="btn btn-warning">Edit</button>
+                                    </a>
+                                    <a onclick="return confirm('Are you sure want to delete?')" href="delete_mn_product.php?id_mn_product=<?=$item['id_mn_product']?>">
+                                      <button class="btn btn-danger">Remove</button>
+                                    </a>
+                                </td>
+                            </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -99,7 +105,15 @@ if(!isset($_SESSION['admin'])) {
         </div>
         <!-- End of Main Content -->
 
-      <?php include '../components/footer.php'; ?>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2020</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
     </div>
