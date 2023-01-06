@@ -1,21 +1,21 @@
 <?php
     if(!empty($_POST)){
-        require_once ('dbhelper.php');
+        require_once ('../admin/dbhelper.php');
 
-        $masv = $_POST['masv'];
-        $pwd = $_POST['pwd'];
+        $email = $_POST['email'];
+        $pwd = md5($_POST['pwd']);
 
-        $sql = "SELECT * from users WHERE masv = '$masv' and password = '$pwd'";
-        $user = queryResult($sql, true);
+        $sql = "SELECT * from users WHERE email = '$email' and password = '$pwd'";
+        $users = queryResult($sql, true);
 
-        if($user != null){
-            $_SESSION['user'] = $user;
-            header('Location: navbar.php');
-            die();
+        if($users != null){
+            $_SESSION['users'] = $users;
+             header('Location: .php');
+             die();
         }
         else{
             echo '<script language="javascript">';
-            echo 'alert("Must Register First")';
+            echo 'alert("Enter Email or Password Wrong")';
             echo '</script>';
         }
     }

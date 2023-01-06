@@ -15,7 +15,7 @@ function init(){
 
     query('create table if not exists tbl_cart (
         id_cart int primary key auto_increment,
-        id_users int,
+        id_users_cart int,
         code_cart varchar(10),
         cart_status int
     )');
@@ -53,13 +53,13 @@ function init(){
 
 
     query('create table if not exists users (
-        id_user int primary key auto_increment,
+        id_users int primary key auto_increment,
         name varchar(50),
         email varchar(50),
         phone varchar(20),
         address varchar(50),
         password varchar(50),
-        id_user_book int
+        id_users_cart int
     )');
 
     query('create table if not exists admin (
